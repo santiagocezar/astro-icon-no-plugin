@@ -1,13 +1,18 @@
 import { defineConfig } from 'astro/config';
-// import icon from './icon.js';
+import node from '@astrojs/node';
+import icon from './plugin';
 
 // https://astro.build/config
 export default defineConfig({
-  // integrations: [
-  //   icon({
-  //     include: {
-  //       mdi: ['*'],
-  //     },
-  //   }),
-  // ],
+  output: "server",
+  adapter: node({
+    mode: 'standalone'
+  }),
+  integrations: [
+    icon({
+      include: {
+        mdi: ['*'],
+      },
+    }),
+  ],
 });

@@ -1,5 +1,5 @@
 import { getIcons } from '@iconify/utils';
-import { loadCollection, locate } from '@iconify/json';
+import { loadCollectionFromFS } from "@iconify/utils/lib/loader/fs";
 
 /** @returns {import('astro').AstroIntegration} */
 export default function icon(opts = {}) {
@@ -24,14 +24,22 @@ async function getVitePlugin({ include = {} }, command) {
 
   const fullCollections = await Promise.all(
     Object.keys(include).map((collection) =>
-      loadCollection(locate(collection)).then((value) => [collection, value])
+      loadCollectionFromFS(collection).then((value) => [collection, value])
     )
   );
-  const collections = fullCollections.map(([name, icons]) => {
+  /** @type {Record<string, import("@iconify/types").IconifyJSON>} */
+  const collections = {}
+  for (const [name, collection] of fullCollections) {
     const reduced = include[name];
-    if (reduced.length === 1 && reduced[0] === '*') return icons;
-    return getIcons(icons, reduced);
-  });
+    // include all icons in the collection
+    if (reduced.length === 1 && reduced[0] === '*' && collection) {
+      collections[name] = collection;
+    }
+    const reducedCollection = getIcons(collection, reduced)
+    if (reducedCollection) {
+      collections[name] = reducedCollection;
+    }
+  }
 
   return {
     name: 'astro-icon',
@@ -42,10 +50,9 @@ async function getVitePlugin({ include = {} }, command) {
     },
     async load(id) {
       if (id === resolvedVirtualModuleId) {
-        console.log(Object.keys(collections))
-        return `export default ${JSON.stringify(
+        return `export const pluginEnabled = true;\nexport default ${JSON.stringify(
           collections
-        )};\nexport const config = ${command === 'dev' ? JSON.stringify({ include }) : 'undefined'
+        )};\nexport const config = ${command === 'dev' ? JSON.stringify({ include }) : 'null'
           }`;
       }
     },
