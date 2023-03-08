@@ -1,0 +1,22 @@
+---
+import { iconToSVG } from "@iconify/utils";
+import { getIcon } from "../lib/astro-icon";
+
+interface Props {
+  name: string;
+  title?: string;
+}
+
+const { name = "", title, ...props } = Astro.props;
+let [set, icon] = name.split(":");
+
+const iconData = await getIcon(set, icon);
+const renderData = iconToSVG(iconData);
+
+const normalizedProps = { ...renderData.attributes, ...props };
+const normalizedBody = `${title ? "<title>" + title + "</title>" : ""}${
+  renderData.body
+}`;
+---
+
+<svg {...normalizedProps} data-icon={name} set:html={normalizedBody} />
