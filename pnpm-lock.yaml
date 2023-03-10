@@ -8,6 +8,7 @@ specifiers:
   '@iconify/types': ^2.0.0
   '@iconify/utils': ^2.1.4
   astro: ^2.0.17
+  vite: ^4.1.4
 
 dependencies:
   '@astrojs/node': 5.1.0_astro@2.0.18
@@ -17,6 +18,7 @@ dependencies:
   '@iconify/types': 2.0.0
   '@iconify/utils': 2.1.4
   astro: 2.0.18
+  vite: 4.1.4
 
 packages:
 

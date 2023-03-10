@@ -4,14 +4,15 @@ import icon from './plugin';
 
 // https://astro.build/config
 export default defineConfig({
-  output: "server",
-  adapter: node({
-    mode: 'standalone'
-  }),
+  // output: "server",
+  // adapter: node({
+  //   mode: 'standalone'
+  // }),
   integrations: [
     icon({
       include: {
         mdi: ['*'],
+        "simple-icons": ['astro'],
       },
     }),
   ],

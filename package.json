@@ -17,6 +17,7 @@
     "@iconify/json": "^2.2.31",
     "@iconify/types": "^2.0.0",
     "@iconify/utils": "^2.1.4",
-    "astro": "^2.0.17"
+    "astro": "^2.0.17",
+    "vite": "^4.1.4"
   }
 }

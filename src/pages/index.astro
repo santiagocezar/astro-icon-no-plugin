@@ -16,7 +16,11 @@ import Icon from "../components/Icon.astro";
 		<Icon name="mdi:account" />
 		<Icon name="simple-icons:astro" />
 		<Icon name="simple-icons:react" />
+		<!--
+			FIXME: astro SSR doesn't seem to have an error handler
+			so if the icon is not included in the build, here it just
+			get's stuck
+		-->
 		<!-- <Icon name={"simple-icons:" + icon} /> -->
-		<!-- what would happen here	 -->
 	</body>
 </html>

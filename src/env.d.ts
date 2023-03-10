@@ -1,16 +1,12 @@
 /// <reference types="astro/client" />
 
-declare type AstroIconConfig = { include: Record<string, string> }
+type AstroIconConfig = { include: Record<string, string> }
 
-declare module "virtual:astro-icon" {
-    import type { IconifyJSON } from '@iconify/types';
+var __ASTRO_ICON_COLLECTIONS: Record<string, IconifyJSON> | undefined
+var __ASTRO_ICON_CONFIG: AstroIconConfig | undefined
 
-    export const pluginEnabled: boolean
-    const collections: Record<string, IconifyJSON>
-    export default collections
-    export const config: AstroIconConfig | null
-}
-
-declare interface Error extends Error {
+interface Error extends Error {
     hint?: string
 }
+
+
